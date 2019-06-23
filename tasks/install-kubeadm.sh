@@ -21,3 +21,5 @@ sudo mkdir -p /etc/systemd/system/kubelet.service.d
 sudo curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/10-kubeadm.conf" | sudo bash -c 'sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf'
 
 sudo systemctl enable kubelet
+
+/opt/bin/kubeadm config images pull
