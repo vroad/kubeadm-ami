@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: hashicorp/packer:1.3.5
+    working_directory: ~/packer
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/packer
+      - run:
+          name: Build
+          command: packer build build.json
+          no_output_timeout: 30m
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build:
+          context: AMI

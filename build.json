@@ -1,0 +1,36 @@
+{
+  "builders": [
+    {
+      "ami_name": "kubeadm {{timestamp}}",
+      "ami_regions": ["ap-northeast-1"],
+      "instance_type": "t3.micro",
+      "region": "ap-northeast-1",
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "CoreOS-stable-*-hvm",
+          "root-device-type": "ebs"
+        },
+        "owners": ["595879546273"],
+        "most_recent": true
+      },
+      "ssh_username": "core",
+      "type": "amazon-ebs"
+    }
+  ],
+  "post-processors": [
+    {
+      "output": "manifest-base.json",
+      "strip_path": true,
+      "type": "manifest"
+    }
+  ],
+  "provisioners": [
+    {
+      "scripts": [
+          "./tasks/install-kubeadm.sh"
+      ],
+      "type": "shell"
+    }
+  ]
+}
